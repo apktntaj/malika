@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="flex justify-center items-center gap-10 mt-5">
+    <div className="flex justify-center items-center gap-10 h-[250px] bg-lime-200">
       <div className="w-3/5">
         <h1 className="text-2xl font-bold">Modules Generator</h1>
         <p className="mt-5 pr-10">
