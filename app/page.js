@@ -1,5 +1,6 @@
 import FormInputCSV from "./ui/FormInputCSV";
 import Hero from "./ui/Hero";
+import TableItemBarang from "./ui/TableItemBarang";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
       <Hero />
       <FormInputCSV />
       {/* <FileStstem /> */}
-      {/* <TableItemBarang /> */}
+      <TableItemBarang />
       {/* <HSCodeTable /> */}
     </>
   );

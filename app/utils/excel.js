@@ -2,6 +2,7 @@ import { readFile, utils } from "xlsx";
 import path from "path";
 
 import { get } from "axios";
+import { publicPath } from "./fs";
 
 /**
  * string, string -> []
@@ -11,11 +12,18 @@ import { get } from "axios";
  * @returns
  * [obj, obj] Sebuah hsCodes dengan isi object
  */
+
+// export function getDataExcel(namaFile, cb) {
+//   const wb = readFile(namaFile);
+//   const ws = wb.Sheets[0];
+
+//   cb(ws);
+// }
 export function getDataColumInSheet(sheet, kolom) {
   const result = [];
 
-  const rootFolder = path.resolve(__dirname, "../../..");
-  const fileBUP = path.join(rootFolder, "/public/bup.xlsx");
+  // const rootFolder = path.resolve(__dirname, "../../..");
+  const fileBUP = path.join(publicPath, "public", "/Tarif.xlsx");
 
   const wb = readFile(fileBUP);
   const ws = wb.Sheets[sheet];
