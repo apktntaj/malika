@@ -1,7 +1,9 @@
 import { writeFile } from "fs/promises";
-import { join } from "path";
+import { join, resolve } from "path";
 
 const FormInputCSV = async () => {
+  const akar2 = join(resolve(__dirname, "../.."));
+
   async function upload(data) {
     "use server";
 
@@ -14,7 +16,9 @@ const FormInputCSV = async () => {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const path = join("/", "tmp", file.name);
+    const akar = join(resolve(__dirname, "../../.."));
+
+    const path = join(akar, "public", file.name);
     await writeFile(path, buffer);
     console.log(`Open ${path} to see the uploaded file`);
 

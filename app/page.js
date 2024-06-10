@@ -6,6 +6,9 @@ export default function Home() {
     <>
       <Hero />
       <FormInputCSV />
+      {/* <FileStstem /> */}
+      {/* <TableItemBarang /> */}
+      {/* <HSCodeTable /> */}
     </>
   );
 }
