@@ -1,5 +1,5 @@
 import { readFile, utils } from "xlsx";
-import path from "path";
+import { join } from "path";
 
 import { get } from "axios";
 import { publicPath } from "./fs";
@@ -13,18 +13,18 @@ import { publicPath } from "./fs";
  * [obj, obj] Sebuah hsCodes dengan isi object
  */
 
-// export function getDataExcel(namaFile, cb) {
-//   const wb = readFile(namaFile);
-//   const ws = wb.Sheets[0];
+export function getDataExcel(namaFile, cb) {
+  const wb = readFile(namaFile);
+  const ws = wb.Sheets[0];
 
-//   cb(ws);
-// }
+  cb(ws);
+}
 export function getDataColumInSheet(sheet, kolom) {
   const result = [];
 
   // const rootFolder = path.resolve(__dirname, "../../..");
-  const fileBUP = path.join(publicPath, "public", "/Tarif.xlsx");
-
+  const fileBUP = join(publicPath, "public", "/Tarif.xlsx");
+  console.log(fileBUP);
   const wb = readFile(fileBUP);
   const ws = wb.Sheets[sheet];
 
@@ -129,5 +129,3 @@ export function generateBarangTarif(arr) {
 
   return res;
 }
-
-// export default { fetchAllData, getDataColumInSheet, generateBarangTarif };

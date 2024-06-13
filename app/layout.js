@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "./ui/Navbar";
+import { navLinks } from "./utils/nav-links";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,9 +12,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main>{children}</main>
+    <html data-theme="bumblebee" lang="en">
+      <body
+        className={`${inter.className} text-slate-800 flex flex-col justify-between`}
+      >
+        <header className="lg:px-10">
+          <Navbar links={navLinks} />
+        </header>
+        <main className="min-h-[80vh] flex justify-center items-center">
+          {children}
+        </main>
+        <footer className="footer footer-center p-4 bg-base-800 text-base-content">
+          <aside>
+            <p>Copyright © 2024 Semesta Raya Software</p>
+          </aside>
+        </footer>
       </body>
     </html>
   );

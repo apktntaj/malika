@@ -1,23 +1,24 @@
 import Image from "next/image";
 
-const Hero = () => {
+const Hero = ({ title, subtitle }) => {
   return (
-    <div className="flex justify-center items-center gap-10 h-[250px] bg-lime-200">
-      <div className="w-3/5">
-        <h1 className="text-2xl font-bold">Modules Generator</h1>
-        <p className="mt-5 pr-10">
-          Module Generator is an online document generator for Exhibition
-          purpose only. Thanks to our advanced conversion technology the quality
-          of the output will be as good as if the file was serve by CEISA 4.0.
-        </p>
+    <div className="px-10 lg:-mt-10 hero min-h-screen flex justify-evenly items-center">
+      <div className="hero-content text-center lg:text-left">
+        <div className="max-w-md">
+          <h1 className="text-5xl font-bold">{title}</h1>
+          <p className="py-6">{subtitle}</p>
+          <div className="flex gap-3 justify-center">
+            <button className="btn btn-accent">Sign Up</button>
+            <button className="btn btn-success">Login</button>
+          </div>
+        </div>
       </div>
-      <div className="image">
+      <div>
         <Image
-          className="inset-0"
-          src="vercel.svg"
-          alt="Picture of the author"
-          width={200}
-          height={200}
+          src={"vercel.svg"}
+          width={500}
+          height={500}
+          className="hidden lg:block -mt-16"
         />
       </div>
     </div>
