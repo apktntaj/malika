@@ -1,7 +1,7 @@
 import { readFile, utils } from "xlsx";
 import { join } from "path";
 
-import { get } from "axios";
+const axios = require("axios");
 import { publicPath } from "./fs";
 
 /**
@@ -87,6 +87,46 @@ export async function getData(hsCode) {
     res["lartas_export"] = data.export_regulation.length ? "1" : "0";
 
     return res;
+  } catch (error) {
+    console.error("wkwk", error);
+  }
+}
+
+export async function cekTarif(item) {
+  let hsCode = item["HS Code"].toString();
+  try {
+    const response = await axios.get(
+      `https://api.insw.go.id/api-prod-ba/ref/hscode/komoditas?hs_code=${hsCode}`,
+      {
+        headers: {
+          accept: "application/json, text/plain, */*",
+          "accept-language": "en-US,en;q=0.9",
+          authorization: "Basic aW5zd18yOmJhYzJiYXM2",
+
+          "Referrer-Policy": "strict-origin-when-cross-origin",
+        },
+        body: null,
+        method: "GET",
+      }
+    );
+
+    const html = response.data;
+    const data = html.data[0];
+
+    // TARIF
+    item["BM"] = data["new_mfn"][0]["bm"][0]["bm"];
+    item["PPN"] = data["new_mfn"][0]["ppn"][0]["ppn"];
+    item["PPH"] = data["new_mfn"][0]["pph"][0]["pph"];
+
+    // LARTAS
+    item["lartas_import"] = data.import_regulation.length ? "1" : "0";
+    item["lartas_border"] = data.import_regulation_border.length ? "1" : "0";
+    item["lartas_post_border"] = data.import_regulation_post_border.length
+      ? "1"
+      : "0";
+    item["lartas_export"] = data.export_regulation.length ? "1" : "0";
+
+    return item;
   } catch (error) {
     console.error("wkwk", error);
   }

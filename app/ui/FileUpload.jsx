@@ -2,11 +2,15 @@
 
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
+import TableBarang from "./TableBarang";
+import { cekTarif } from "../utils/excel";
 
 function FileUpload() {
   const [message, setMessage] = useState("");
   const [isFile, setIsFile] = useState(false);
-  const [jsonData, setJsonData] = useState([]);
+  const [jsonData, setJsonData] = useState();
+
+  let data;
 
   //   console.log(jsonData);
   const handleChange = async (event) => {
@@ -23,8 +27,7 @@ function FileUpload() {
 
       // Konversi sheet ke JSON
       const json = XLSX.utils.sheet_to_json(workSheet);
-      setJsonData(json);
-      console.log(json);
+      data = json;
 
       //   Fetch data berdasarkan info dari file Excel
       // const fetchedData = await fetchDataBasedOnExcel(json);
@@ -42,11 +45,13 @@ function FileUpload() {
     reader.readAsArrayBuffer(file);
   };
 
-  const handlePreview = () => {
-    jsonData.map((row) => {
-      console.log(row["HS CODE"]);
-    });
+  const handlePreview = async () => {
+    const result = await Promise.all(data.map((row) => cekTarif(row)));
+
+    setJsonData(result);
   };
+
+  // Selesai disini
 
   const fetchDataBasedOnExcel = async (json, cb) => {
     // Contoh fetch data dari API
@@ -99,11 +104,8 @@ function FileUpload() {
         Preview
       </button>
       <button className="btn btn-active btn-neutral">Download File</button>
-      <ul>
-        {jsonData.map((item) => (
-          <li>{item.BM}</li>
-        ))}
-      </ul>
+
+      <TableBarang rowsBarang={jsonData} />
       <pre>{jsonData && JSON.stringify(jsonData, null, 2)}</pre>
     </div>
   );
