@@ -1,6 +1,4 @@
-import FormInputCSV from "./ui/FormInputCSV";
 import Hero from "./ui/Hero";
-import TableItemBarang from "./ui/TableItemBarang";
 
 const title = "Enhance Your Business Efficiency with Us";
 const subtitle =
