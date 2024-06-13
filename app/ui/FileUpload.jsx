@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 
 function FileUpload() {
   const [message, setMessage] = useState("");
+  const [isFile, setIsFile] = useState(false);
   const [jsonData, setJsonData] = useState([]);
 
   //   console.log(jsonData);
@@ -98,6 +99,11 @@ function FileUpload() {
         Preview
       </button>
       <button className="btn btn-active btn-neutral">Download File</button>
+      <ul>
+        {jsonData.map((item) => (
+          <li>{item.BM}</li>
+        ))}
+      </ul>
       <pre>{jsonData && JSON.stringify(jsonData, null, 2)}</pre>
     </div>
   );
