@@ -6,9 +6,8 @@ import TableBarang from "./TableBarang";
 import { cekTarif } from "../utils/excel";
 
 function FileUpload() {
-  const [message, setMessage] = useState("");
-  const [isFile, setIsFile] = useState(false);
   const [jsonData, setJsonData] = useState();
+  const [loading, setLoading] = useState(false);
 
   let data;
 
@@ -46,9 +45,10 @@ function FileUpload() {
   };
 
   const handlePreview = async () => {
+    setLoading(true);
     const result = await Promise.all(data.map((row) => cekTarif(row)));
-
     setJsonData(result);
+    setLoading(false);
   };
 
   // Selesai disini
@@ -102,14 +102,14 @@ function FileUpload() {
         />
         <div>
           <button onClick={handlePreview} className="btn btn-active mr-5">
-            Preview
+            {loading ? "Wait" : "Preview"}
           </button>
           <button className="btn btn-active btn-neutral">Download File</button>
         </div>
       </div>
       <span className="text-sm text-slate-600 -mt-2 pl-1">
         Download template di{" "}
-        <a className="text-xl tracking-wider" href="vercel.svg" download>
+        <a className="text-xl tracking-wider" href="template.xlsx" download>
           sini
         </a>
       </span>
