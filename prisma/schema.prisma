@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Region {
+  id     String   @id @default(cuid())
+  name   String
+  kode   String
+  negara Negara[]
+}
+
+model Negara {
+  id       String    @id @default(cuid())
+  name     String
+  kode     String
+  region   Region    @relation(fields: [regionId], references: [id])
+  regionId String
+  shipper  Shipper[]
+}
+
+model Shipper {
+  id            String     @id @default(cuid())
+  name          String
+  alamat        String
+  contactPerson String
+  negara        Negara     @relation(fields: [negaraId], references: [id])
+  negaraId      String
+  shipment      Shipment[]
+}
+
+enum Moda {
+  Udara
+  Laut
+}
+
+model Consignee {
+  id            String     @id @default(cuid())
+  name          String
+  alamat        String
+  contactPerson String
+  shipment      Shipment[]
+}
+
+model Karyawan {
+  id          String     @id @default(cuid())
+  name        String
+  alamat      String
+  mulaiMasuk  DateTime
+  lamaKontrak Int
+  shipment    Shipment[]
+}
+
+model Shipment {
+  id               String     @id @default(cuid())
+  reference        String?
+  moda             Moda
+  isInvoice        Boolean    @default(false)
+  notes            String
+  noInvoice        String
+  tglInvoice       DateTime
+  totalInvoice     Float
+  jumlahItemBarang Int
+  shipper          Shipper    @relation(fields: [shipperId], references: [id])
+  shipperId        String
+  Consignee        Consignee? @relation(fields: [consigneeId], references: [id])
+  consigneeId      String?
+  karyawanId       String
+  pic              Karyawan   @relation(fields: [karyawanId], references: [id])
+  CargoInfo        CargoInfo?
+}
+
+enum CargoType {
+  FCL
+  LCL
+}
+
+model CargoInfo {
+  id              String    @id @default(cuid())
+  noBL            String
+  sailDate        DateTime
+  eta             DateTime
+  voyage          String
+  vesselName      String
+  pelabuhanAsal   String
+  pelabuhanTujuan String
+  cargoType       CargoType
+  jumlahContainer Int?
+  nomorContainer  String?
+  jumlahPackage   Int?
+  weight          Float?
+  volume          Float?
+  shipmentId      String    @unique
+  shipment        Shipment  @relation(fields: [shipmentId], references: [id])
+}
+
+// https://youtu.be/yW6HnMUAWNU?si=ZKoqi19WTVLz1FP1&t=666
