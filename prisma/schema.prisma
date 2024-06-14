@@ -32,8 +32,8 @@ model Negara {
 model Shipper {
   id            String     @id @default(cuid())
   name          String
-  alamat        String
-  contactPerson String
+  alamat        String?
+  contactPerson String?
   negara        Negara     @relation(fields: [negaraId], references: [id])
   negaraId      String
   shipment      Shipment[]
@@ -47,8 +47,8 @@ enum Moda {
 model Consignee {
   id            String     @id @default(cuid())
   name          String
-  alamat        String
-  contactPerson String
+  alamat        String?
+  contactPerson String?
   shipment      Shipment[]
 }
 
@@ -66,11 +66,11 @@ model Shipment {
   reference        String?
   moda             Moda
   isInvoice        Boolean    @default(false)
-  notes            String
-  noInvoice        String
-  tglInvoice       DateTime
-  totalInvoice     Float
-  jumlahItemBarang Int
+  notes            String?
+  noInvoice        String?
+  tglInvoice       DateTime?
+  totalInvoice     Float?
+  jumlahItemBarang Int?
   shipper          Shipper    @relation(fields: [shipperId], references: [id])
   shipperId        String
   Consignee        Consignee? @relation(fields: [consigneeId], references: [id])
@@ -88,12 +88,12 @@ enum CargoType {
 model CargoInfo {
   id              String    @id @default(cuid())
   noBL            String
-  sailDate        DateTime
-  eta             DateTime
-  voyage          String
-  vesselName      String
-  pelabuhanAsal   String
-  pelabuhanTujuan String
+  sailDate        DateTime?
+  eta             DateTime?
+  voyage          String?
+  vesselName      String?
+  pelabuhanAsal   String?
+  pelabuhanTujuan String?
   cargoType       CargoType
   jumlahContainer Int?
   nomorContainer  String?
