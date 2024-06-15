@@ -1,11 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
-const globalPrisma = global.prisma || new PrismaClient();
+// const globalPrisma = global.prisma || new PrismaClient();
 
-export const prisma = globalPrisma;
+// export const prisma = globalPrisma;
 
-if (process.env.NODE_ENV === "development") {
-  global.prisma = globalPrisma;
-}
+// if (process.env.NODE_ENV === "development") {
+//   global.prisma = globalPrisma;
+// }
 
-export default globalPrisma;
+// export default globalPrisma;
