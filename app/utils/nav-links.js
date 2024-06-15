@@ -1,22 +1,17 @@
 export const navLinks = [
   {
     id: 1,
-    label: "Cek Tarif",
-    href: "/cek-tarif",
-  },
-  {
-    id: 2,
-    label: "Ship Later",
+    label: "Shipment",
     href: "/shipment",
   },
   {
-    id: 3,
-    label: "Ship Later",
+    id: 2,
+    label: "warehouse",
     href: "/warehouse",
   },
   {
-    id: 4,
-    label: "Ship Later",
-    href: "/chat",
+    id: 3,
+    label: "Chat",
+    href: "/chat-pabaen",
   },
 ];

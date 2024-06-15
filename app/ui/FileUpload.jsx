@@ -10,8 +10,6 @@ function FileUpload() {
   const [loading, setLoading] = useState(false);
 
   let data;
-
-  //   console.log(jsonData);
   const handleChange = async (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
