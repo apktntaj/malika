@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const Navbar = ({ links }) => {
   return (
-    <nav className="navbar bg-base-100 font-bold">
+    <nav className="navbar bg-base-100 font-bold px-20">
       <div className="navbar-start">
         {/* DROPDOWN */}
         <div className="dropdown">
@@ -43,11 +44,12 @@ const Navbar = ({ links }) => {
 
         {/* LOGO */}
         <div>
-          <span>
-            <Link href={"/"} className="font-bold text-3xl tracking-wider">
-              Malika
+          <div>
+            <Link className="flex items-center space-x-2 text-4xl" href={"/"}>
+              <Image src={"/logo.png"} width={100} height={100} />
+              <span>Malika</span>
             </Link>
-          </span>
+          </div>
         </div>
       </div>
       <div className="navbar-end hidden lg:flex">
