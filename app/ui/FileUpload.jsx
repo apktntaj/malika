@@ -4,89 +4,30 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import TableBarang from "./TableBarang";
 import { cekTarif } from "../utils/excel";
+import { arrayBuffer } from "../utils/utility";
 
 function FileUpload() {
   const [jsonData, setJsonData] = useState();
   const [loading, setLoading] = useState(false);
 
-  let data;
   const handleChange = async (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const bufferedFile = await arrayBuffer(event.target.files[0]);
+    const workbook = XLSX.read(bufferedFile, { type: "binary" });
 
-    reader.onload = async (e) => {
-      const selectedFile = e.target.result;
-      const workbook = XLSX.read(selectedFile, { type: "binary" });
+    // Mengambil nama sheet pertama
+    const sheetName = workbook.SheetNames[0];
+    const workSheet = workbook.Sheets[sheetName];
 
-      // Mengambil nama sheet pertama
-      const sheetName = workbook.SheetNames[0];
-      const workSheet = workbook.Sheets[sheetName];
-
-      // Konversi sheet ke JSON
-      const json = XLSX.utils.sheet_to_json(workSheet);
-      data = json;
-
-      //   Fetch data berdasarkan info dari file Excel
-      // const fetchedData = await fetchDataBasedOnExcel(json);
-
-      // Tambahkan data yang sudah di-fetch ke file Excel
-      //   const updatedWorkbook = updateWorkbookWithFetchedData(
-      //     workbook,
-      //     fetchedData
-      //   );
-
-      // Export file Excel yang sudah diperbarui
-      //   exportWorkbook(updatedWorkbook);
-    };
-
-    reader.readAsArrayBuffer(file);
+    // Konversi sheet ke JSON
+    const json = XLSX.utils.sheet_to_json(workSheet);
+    setJsonData(json);
   };
 
   const handlePreview = async () => {
     setLoading(true);
-    const result = await Promise.all(data.map((row) => cekTarif(row)));
+    const result = await Promise.all(jsonData.map((row) => cekTarif(row)));
     setJsonData(result);
     setLoading(false);
-  };
-
-  // Selesai disini
-
-  const fetchDataBasedOnExcel = async (json, cb) => {
-    // Contoh fetch data dari API
-
-    const fetchedData = await Promise.all(
-      json.map(async (row) => {
-        const response = await fetch(
-          `https://api.insw.go.id/api-prod-ba/ref/hscode/komoditas?hs_code=${row["HS CODE"]}`
-        );
-        const data = await response.json();
-        return { ...row, fetchedData: data };
-      })
-    );
-
-    return fetchedData;
-  };
-
-  const updateWorkbookWithFetchedData = (workbook, fetchedData) => {
-    const newSheet = XLSX.utils.json_to_sheet(fetchedData);
-    workbook.Sheets[workbook.SheetNames[0]] = newSheet;
-    return workbook;
-  };
-
-  const exportWorkbook = (workbook) => {
-    const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
-    const blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "updated_file.xlsx";
-    link.click();
-  };
-
-  const s2ab = (s) => {
-    const buf = new ArrayBuffer(s.length);
-    const view = new Uint8Array(buf);
-    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
-    return buf;
   };
 
   return (
@@ -100,9 +41,8 @@ function FileUpload() {
         />
         <div>
           <button onClick={handlePreview} className="btn btn-active mr-5">
-            {loading ? "Wait" : "Preview"}
+            {loading ? "Mohon tunggu..." : "Cek Tarif"}
           </button>
-          <button className="btn btn-active btn-neutral">Download File</button>
         </div>
       </div>
       <span className="text-sm text-slate-600 -mt-2 pl-1">
