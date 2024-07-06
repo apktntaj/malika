@@ -1,8 +1,8 @@
 import Hero from "./ui/Hero";
 
-const title = "Selasaikan dokumen pabeanmu dalam menit.";
+const title = "Submit then you find it.";
 const subtitle =
-  "Rayefy akan membantu anda menyelesaikan problem pabean kamu dengan cepat. Hidup terlalu singkat untuk mengerjakana pekerjaan repetitif. Biar kami yang melakukannya.";
+  "Rayefy akan membantu anda menyederhanakan proses pembuatan dokumen pabeanmu. Hidup terlalu singkat untuk mengerjakan pekerjaan yang repetitif.";
 
 export default function Home() {
   return (
