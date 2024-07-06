@@ -47,7 +47,7 @@ const Navbar = ({ links }) => {
           <div>
             <Link className="flex items-center space-x-2 text-4xl" href={"/"}>
               <Image src={"/logo.png"} width={100} height={100} />
-              <span>Malika</span>
+              <span>Rayefy</span>
             </Link>
           </div>
         </div>
