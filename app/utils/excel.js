@@ -119,12 +119,12 @@ export async function cekTarif(item) {
     item["PPH"] = data["new_mfn"][0]["pph"][0]["pph"];
 
     // LARTAS
-    item["lartas_import"] = data.import_regulation.length ? "1" : "0";
-    item["lartas_border"] = data.import_regulation_border.length ? "1" : "0";
+    item["lartas_import"] = data.import_regulation.length ? "Ada" : "-";
+    item["lartas_border"] = data.import_regulation_border.length ? "Ada" : "-";
     item["lartas_post_border"] = data.import_regulation_post_border.length
-      ? "1"
-      : "0";
-    item["lartas_export"] = data.export_regulation.length ? "1" : "0";
+      ? "Ada"
+      : "-";
+    item["lartas_export"] = data.export_regulation.length ? "Ada" : "-";
 
     return item;
   } catch (error) {

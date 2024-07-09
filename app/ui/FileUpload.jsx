@@ -34,25 +34,20 @@ function FileUpload() {
 
   return (
     <div className="container px-5 flex flex-col gap-2 mt-5">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <input
           type="file"
           accept=".xlsx, .xls"
           className="file-input w-full max-w-xs"
           onChange={handleChange}
         />
+
         <div>
           <button onClick={handlePreview} className="btn btn-active mr-5">
             {loading ? "Mohon tunggu..." : "Cek Tarif"}
           </button>
         </div>
       </div>
-      <span className="text-sm text-slate-600 -mt-2 pl-1">
-        Download template di{" "}
-        <a className="text-xl tracking-wider" href="template.xlsx" download>
-          sini
-        </a>
-      </span>
       <TableBarang rowsBarang={jsonData} />
     </div>
   );
