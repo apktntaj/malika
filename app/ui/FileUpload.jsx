@@ -10,6 +10,8 @@ function FileUpload() {
   const [jsonData, setJsonData] = useState();
   const [loading, setLoading] = useState(false);
 
+  console.log(jsonData);
+
   const handleChange = async (event) => {
     const bufferedFile = await arrayBuffer(event.target.files[0]);
     const workbook = XLSX.read(bufferedFile, { type: "binary" });

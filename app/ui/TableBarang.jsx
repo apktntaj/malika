@@ -22,7 +22,17 @@ const TableBarang = ({ rowsBarang }) => {
               ? rowsBarang.map((rows, idx) => (
                   <tr key={idx}>
                     <th>{idx + 1}</th>
-                    <th>{rows["HS Code"]}</th>
+                    <th
+                      className={`${
+                        rows["HS Code"].length !== 8
+                          ? "text-red-500 font-extrabold"
+                          : ""
+                      }`}
+                    >
+                      {rows["HS Code"].length !== 8
+                        ? "INVALID HS CODE"
+                        : rows["HS Code"]}
+                    </th>
                     <th>{rows["BM"]}</th>
                     <th>{rows["PPN"]}</th>
                     <th>{rows["PPH"]}</th>
