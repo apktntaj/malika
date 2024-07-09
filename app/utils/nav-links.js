@@ -1,7 +1,7 @@
 export const navLinks = [
   {
     id: 1,
-    label: "Cek Tarif",
-    href: "/cek-tarif",
+    label: "Feedback",
+    href: "https://wa.me/6201510093866",
   },
 ];
