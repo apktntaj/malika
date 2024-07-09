@@ -4,9 +4,4 @@ export const navLinks = [
     label: "Cek Tarif",
     href: "/cek-tarif",
   },
-  {
-    id: 2,
-    label: "Chat",
-    href: "/chat-pabaen",
-  },
 ];
