@@ -1,5 +1,4 @@
 import FileUpload from "../ui/FileUpload";
-import TableBarang from "../ui/TableBarang";
 
 const ExcelPage = () => {
   return (
@@ -16,6 +15,9 @@ const ExcelPage = () => {
         <p>
           Life is too short to do repetitive and boring tasks. By using this
           app, you'll have more spare time to focus on other strategic tasks.
+        </p>
+        <p className="text-red-500">
+          Please consider to use desktop screen for better table display.
         </p>
       </div>
       <p className="text-center text-slate-600 -mt-2 pl-1">
