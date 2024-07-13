@@ -1,3 +1,5 @@
+import { isValidFormat } from "../utils/utility";
+
 const TableBarang = ({ rowsBarang }) => {
   return (
     <>
@@ -18,21 +20,39 @@ const TableBarang = ({ rowsBarang }) => {
             </tr>
           </thead>
           <tbody>
-            {rowsBarang
-              ? rowsBarang.map((rows, idx) => (
-                  <tr key={idx}>
-                    <th>{idx + 1}</th>
-                    <th>{rows["HS Code"]}</th>
-                    <th>{rows["BM"]}</th>
-                    <th>{rows["PPN"]}</th>
-                    <th>{rows["PPH"]}</th>
-                    <th>{rows["lartas_import"]}</th>
-                    <th>{rows["lartas_border"]}</th>
-                    <th>{rows["lartas_post_border"]}</th>
-                    <th>{rows["lartas_export"]}</th>
-                  </tr>
-                ))
-              : ""}
+            {rowsBarang ? (
+              rowsBarang.map((row, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td
+                    className={`text-center ${
+                      isValidFormat(row["HS Code"]) ? "" : "text-red-500"
+                    }`}
+                  >
+                    {row["HS Code"]}
+                  </td>
+                  <td>{row["BM"]}</td>
+                  <td>{row["PPN"]}</td>
+                  <td>{row["PPH"]}</td>
+                  <td>{row["lartas_import"]}</td>
+                  <td>{row["lartas_border"]}</td>
+                  <td>{row["lartas_post_border"]}</td>
+                  <td>{row["lartas_export"]}</td>
+                </tr>
+              ))
+            ) : (
+              <tr className="text-center">
+                <th>#</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+                <th>-</th>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

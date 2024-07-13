@@ -1,33 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
-import * as XLSX from "xlsx";
+import React, { isValidElement, useState } from "react";
 import TableBarang from "./TableBarang";
-import { cekTarif } from "../utils/excel";
-import { arrayBuffer } from "../utils/utility";
+import {
+  arrayBuffer,
+  convertBufferToJson,
+  dataInsw,
+  isValidFormat,
+} from "../utils/utility";
 
 function FileUpload() {
   const [jsonData, setJsonData] = useState();
   const [loading, setLoading] = useState(false);
-
-  console.log(jsonData);
+  const [fetchable, setFetchable] = useState(false);
 
   const handleChange = async (event) => {
+    setFetchable(true);
     const bufferedFile = await arrayBuffer(event.target.files[0]);
-    const workbook = XLSX.read(bufferedFile, { type: "binary" });
+    const items = convertBufferToJson(bufferedFile);
 
-    // Mengambil nama sheet pertama
-    const sheetName = workbook.SheetNames[0];
-    const workSheet = workbook.Sheets[sheetName];
+    const isListOfHSCodeValid = items.every(
+      (item) => item["HS Code"].length === 8 && /^\d+$/.test(item["HS Code"])
+    );
 
-    // Konversi sheet ke JSON
-    const json = XLSX.utils.sheet_to_json(workSheet);
-    setJsonData(json);
+    if (!isListOfHSCodeValid) {
+      alert("Ada beberapa HS Code yang tidak valid (Cek yang berwarna merah");
+      setFetchable(false);
+    }
+    setJsonData(items);
   };
 
   const handlePreview = async () => {
     setLoading(true);
-    const result = await Promise.all(jsonData.map((row) => cekTarif(row)));
+
+    const result = await Promise.all(jsonData.map((row) => dataInsw(row)));
     setJsonData(result);
     setLoading(false);
   };
@@ -43,7 +49,11 @@ function FileUpload() {
         />
 
         <div>
-          <button onClick={handlePreview} className="btn btn-active mr-5">
+          <button
+            onClick={handlePreview}
+            className="btn btn-active mr-5"
+            disabled={!fetchable}
+          >
             {loading ? "Mohon tunggu..." : "Cek Tarif"}
           </button>
         </div>
