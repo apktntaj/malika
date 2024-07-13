@@ -55,21 +55,21 @@ export async function dataInsw(item) {
       }
     );
 
-    // const html = response.data;
-    // const data = html.data[0];
+    const html = response.data;
+    const data = html.data[0];
 
-    // // TARIF
-    // item["BM"] = data["new_mfn"][0]["bm"][0]["bm"];
-    // item["PPN"] = data["new_mfn"][0]["ppn"][0]["ppn"];
-    // item["PPH"] = data["new_mfn"][0]["pph"][0]["pph"];
+    // TARIF
+    item["BM"] = data["new_mfn"][0]["bm"][0]["bm"];
+    item["PPN"] = data["new_mfn"][0]["ppn"][0]["ppn"];
+    item["PPH"] = data["new_mfn"][0]["pph"][0]["pph"];
 
-    // // LARTAS
-    // item["lartas_import"] = data.import_regulation.length ? "Ada" : "-";
-    // item["lartas_border"] = data.import_regulation_border.length ? "Ada" : "-";
-    // item["lartas_post_border"] = data.import_regulation_post_border.length
-    //   ? "Ada"
-    //   : "-";
-    // item["lartas_export"] = data.export_regulation.length ? "Ada" : "-";
+    // LARTAS
+    item["lartas_import"] = data.import_regulation.length ? "Ada" : "-";
+    item["lartas_border"] = data.import_regulation_border.length ? "Ada" : "-";
+    item["lartas_post_border"] = data.import_regulation_post_border.length
+      ? "Ada"
+      : "-";
+    item["lartas_export"] = data.export_regulation.length ? "Ada" : "-";
     console.log(response.data);
     return response.data;
   } catch (error) {

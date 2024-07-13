@@ -22,7 +22,7 @@ const TableBarang = ({ rowsBarang }) => {
           <tbody>
             {rowsBarang ? (
               rowsBarang.map((row, idx) => (
-                <tr key={idx}>
+                <tr className="text-center" key={idx}>
                   <td>{idx + 1}</td>
                   <td
                     className={`text-center ${
