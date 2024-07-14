@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./ui/Navbar";
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
         </header>
         <main className="min-h-[80vh] flex justify-center items-center">
           {children}
+          <Analytics />
         </main>
         <footer className="footer footer-center p-4 bg-base-800 text-base-content">
           <aside>
