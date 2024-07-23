@@ -76,7 +76,7 @@ export async function dataInsw(item) {
   }
 }
 
-export function isValidFormat(str) {
-  const pattern = /^\d+$/; // regular expression for numbers only
-  return pattern.test(str) && str.length === 8; // returns true if str contains only numbers, false otherwise
+export function isNotValidFormat(str) {
+  const pattern = /^\d+$/;
+  return !(pattern.test(str) && str.length === 8);
 }

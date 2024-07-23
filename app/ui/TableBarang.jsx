@@ -1,17 +1,16 @@
-import { isValidFormat } from "../utils/utility";
+import { isNotValidFormat } from "../utils/utility";
 import Alert from "./Alert";
+import Row from "./Row";
 
 const TableBarang = ({ items, onDisabled }) => {
   const isEmpty = items.length === 0;
-
   if (isEmpty) {
     onDisabled(true);
-    return <Alert message="File yang diunggah kosong." />;
+    return <Alert message="Data kosong." />;
   }
 
   const keys = Object.keys(items[0]);
   const isTemplated = keys[0] === "HS Code" && keys.length === 1;
-
   if (!isTemplated) {
     onDisabled(true);
     return (
@@ -19,18 +18,15 @@ const TableBarang = ({ items, onDisabled }) => {
     );
   }
 
-  onDisabled(false);
-
-  const header = keys.map((key, idx) => <th key={idx}>{key}</th>);
-
-  const row = items.map((item, idx) => {
+  const anyInvalidFormat = items.some((item) =>
+    isNotValidFormat(item["HS Code"])
+  );
+  anyInvalidFormat ? onDisabled(true) : onDisabled(false);
+  const dataItems = items.map((item, idx) => {
     const values = Object.values(item);
-
     return (
       <tr key={idx}>
-        {values.map((value, idx) => (
-          <td key={idx}>{value}</td>
-        ))}
+        <Row items={values} variant={"data"} />
       </tr>
     );
   });
@@ -41,9 +37,11 @@ const TableBarang = ({ items, onDisabled }) => {
         <table className="table table-zebra table-pin-rows text-center">
           {/* head */}
           <thead>
-            <tr className="text-lg text-center">{header}</tr>
+            <tr className="text-lg text-center">
+              <Row items={keys} variant={"header"} />
+            </tr>
           </thead>
-          <tbody>{row}</tbody>
+          <tbody>{dataItems}</tbody>
         </table>
       </div>
     </>
