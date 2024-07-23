@@ -1,46 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TableBarang from "./TableBarang";
-import { arrayBuffer, convertBufferToJson } from "../utils/utility";
+import {
+  arrayBuffer,
+  convertBufferToJson,
+  isValidFormat,
+} from "../utils/utility";
 import { cekTarif } from "../utils/excel";
 
 function FileUpload() {
-  const [jsonData, setJsonData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [fetchable, setFetchable] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [items, setItems] = useState([]);
 
-  const handleChange = async (event) => {
-    setFetchable(true);
-    const bufferedFile = await arrayBuffer(event.target.files[0]);
-    const items = convertBufferToJson(bufferedFile);
-
-    if (items.length === 0) {
-      alert("Data tidak ditemukan, silahkan coba lagi");
-      setJsonData(null);
-      event.target.value = "";
-    } else {
-      const isListOfHSCodeValid = items.every(
-        (item) =>
-          item[Object.keys(item)[0]].length === 8 &&
-          /^\d+$/.test(item[Object.keys(item)[0]])
-      );
-
-      if (!isListOfHSCodeValid) {
-        alert("Ada beberapa HS Code yang tidak valid (Cek yang berwarna merah");
-        setFetchable(false);
-      }
-      setJsonData(items);
-    }
+  const handleChange = (e) => {
+    const bufferedFile = arrayBuffer(e.target.files[0]);
+    bufferedFile.then((buffer) => {
+      const jsonData = convertBufferToJson(buffer);
+      setItems(jsonData);
+    });
   };
 
-  const handlePreview = async () => {
-    setLoading(true);
+  // const handlePreview = async () => {
+  //   setLoading(true);
 
-    const result = await Promise.all(jsonData.map((row) => cekTarif(row)));
-    setJsonData(result);
-    setLoading(false);
-  };
+  //   const result = await Promise.all(jsonData.map((row) => cekTarif(row)));
+  //   setJsonData(result);
+  //   setLoading(false);
+  // };
 
   return (
     <div className="container px-5 flex flex-col gap-2 mt-5">
@@ -53,16 +41,12 @@ function FileUpload() {
         />
 
         <div>
-          <button
-            onClick={handlePreview}
-            className="btn btn-active mr-5"
-            disabled={!fetchable}
-          >
+          <button className="btn btn-active mr-5" disabled={disabled}>
             {loading ? "Mohon tunggu..." : "Cek Tarif"}
           </button>
         </div>
       </div>
-      <TableBarang rowsBarang={jsonData} />
+      <TableBarang items={items} onDisabled={setDisabled} />
     </div>
   );
 }

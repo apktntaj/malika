@@ -1,59 +1,49 @@
 import { isValidFormat } from "../utils/utility";
+import Alert from "./Alert";
 
-const TableBarang = ({ rowsBarang }) => {
+const TableBarang = ({ items, onDisabled }) => {
+  const isEmpty = items.length === 0;
+
+  if (isEmpty) {
+    onDisabled(true);
+    return <Alert message="File yang diunggah kosong." />;
+  }
+
+  const keys = Object.keys(items[0]);
+  const isTemplated = keys[0] === "HS Code" && keys.length === 1;
+
+  if (!isTemplated) {
+    onDisabled(true);
+    return (
+      <Alert message="Format tidak sesuai. Silakan unggah file dengan menggunakan template yang telah disediakan." />
+    );
+  }
+
+  onDisabled(false);
+
+  const header = keys.map((key, idx) => <th key={idx}>{key}</th>);
+
+  const row = items.map((item, idx) => {
+    const values = Object.values(item);
+
+    return (
+      <tr key={idx}>
+        {values.map((value, idx) => (
+          <td key={idx}>{value}</td>
+        ))}
+      </tr>
+    );
+  });
+
   return (
     <>
       <div className="overflow-x-auto overflow-y-scroll h-96">
-        <table className="table table-zebra table-pin-rows">
+        <table className="table table-zebra table-pin-rows text-center">
           {/* head */}
           <thead>
-            <tr className="text-lg">
-              <th>NO</th>
-              <th>HS CODE</th>
-              <th>BM</th>
-              <th>PPN</th>
-              <th>PPH</th>
-              <th>LARTAS IMPORT</th>
-              <th>LARTAS BORDER</th>
-              <th>LARTAS POST BORDER</th>
-              <th>LARTAS EKSPORT</th>
-            </tr>
+            <tr className="text-lg text-center">{header}</tr>
           </thead>
-          <tbody>
-            {rowsBarang ? (
-              rowsBarang.map((row, idx) => (
-                <tr className="text-center" key={idx}>
-                  <td>{idx + 1}</td>
-                  <td
-                    className={`text-center ${
-                      isValidFormat(row["HS Code"]) ? "" : "text-red-500"
-                    }`}
-                  >
-                    {row["HS Code"]}
-                  </td>
-                  <td>{row["BM"]}</td>
-                  <td>{row["PPN"]}</td>
-                  <td>{row["PPH"]}</td>
-                  <td>{row["lartas_import"]}</td>
-                  <td>{row["lartas_border"]}</td>
-                  <td>{row["lartas_post_border"]}</td>
-                  <td>{row["lartas_export"]}</td>
-                </tr>
-              ))
-            ) : (
-              <tr className="text-center">
-                <th>#</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-                <th>-</th>
-              </tr>
-            )}
-          </tbody>
+          <tbody>{row}</tbody>
         </table>
       </div>
     </>

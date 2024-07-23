@@ -32,7 +32,6 @@ export function convertBufferToJson(buffer) {
   const worksheet = workbook.Sheets[sheetName];
   const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-  console.log(jsonData);
   return jsonData;
 }
 
