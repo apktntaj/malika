@@ -92,6 +92,30 @@ export async function getData(hsCode) {
   }
 }
 
+export async function inswData(hsCode) {
+  const options = {
+    headers: {
+      accept: "application/json, text/plain, */*",
+      "accept-language": "en-US,en;q=0.9",
+      authorization: "Basic aW5zd18yOmJhYzJiYXM2",
+
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+    },
+    body: null,
+    method: "GET",
+  };
+  try {
+    return await axios
+      .get(
+        `https://api.insw.go.id/api-prod-ba/ref/hscode/komoditas?hs_code=${hsCode}`,
+        options
+      )
+      .then((res) => res.data);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 export async function cekTarif(item) {
   let hsCode = item["HS Code"].toString();
   try {

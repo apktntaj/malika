@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = ({ links }) => {
   return (
-    <nav className="navbar bg-base-100 font-bold px-20">
+    <nav className="navbar bg-base-100 font-bold lg:px-20">
       <div className="navbar-start">
         {/* DROPDOWN */}
         <div className="dropdown">
@@ -46,7 +46,12 @@ const Navbar = ({ links }) => {
         <div>
           <div>
             <Link className="flex items-center space-x-2 text-4xl" href={"/"}>
-              <Image src={"/logo.png"} width={100} height={100} />
+              <Image
+                src={"/logo.png"}
+                width={80}
+                height={80}
+                alt="Logo Rayefy"
+              />
               <span>Rayefy</span>
             </Link>
           </div>

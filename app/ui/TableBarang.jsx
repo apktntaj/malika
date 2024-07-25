@@ -10,18 +10,21 @@ const TableBarang = ({ items, onDisabled }) => {
   }
 
   const keys = Object.keys(items[0]);
-  const isTemplated = keys[0] === "HS Code" && keys.length === 1;
+  const isTemplated =
+    JSON.stringify(keys) ===
+    JSON.stringify(["HS CODE", "BM", "PPN", "PPH", "PPH NON API"]);
   if (!isTemplated) {
     onDisabled(true);
     return (
-      <Alert message="Format tidak sesuai. Silakan unggah file dengan menggunakan template yang telah disediakan." />
+      <Alert message="Format tidak sesuai. Silakan unggah file dengan menggunakan contoh berkas yang telah disediakan." />
     );
   }
 
   const anyInvalidFormat = items.some((item) =>
-    isNotValidFormat(item["HS Code"])
+    isNotValidFormat(item["HS CODE"])
   );
   anyInvalidFormat ? onDisabled(true) : onDisabled(false);
+
   const dataItems = items.map((item, idx) => {
     const values = Object.values(item);
     return (

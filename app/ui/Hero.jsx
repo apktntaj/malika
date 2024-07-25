@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = ({ title, subtitle }) => {
   return (
@@ -9,8 +10,12 @@ const Hero = ({ title, subtitle }) => {
           <p className="py-6">{subtitle}</p>
         </div>
         <div className="flex gap-3 justify-start w-full">
-          <button className="btn btn-accent">Sign Up</button>
-          <button className="btn btn-success">Login</button>
+          <button className="btn btn-accent">
+            <Link href={"/daftar"}>Daftar</Link>
+          </button>
+          <button className="btn btn-success">
+            <Link href={"/dashboard"}>Masuk</Link>
+          </button>
         </div>
       </div>
       <div>
