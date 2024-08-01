@@ -116,6 +116,59 @@ export async function inswData(hsCode) {
   }
 }
 
+export async function infoFromInsw(hsCode) {
+  // "https://api.insw.go.id/api-prod-ba/ref/hscode/komoditas?hs_code=";
+
+  // fetch("https://api.insw.go.id/api/cms/hscode?keyword=85353024&size=200&from=0", );
+
+  const url = `https://api.insw.go.id/api/cms/hscode?keyword=85353024&size=200&from=0`;
+  const options = {
+    headers: {
+      accept: "application/json, text/plain, */*",
+      "accept-language": "en-US,en;q=0.9",
+      authorization: "Basic aW5zd18yOmJhYzJiYXM2",
+      "sec-ch-ua":
+        '"Not/A)Brand";v="99", "Microsoft Edge";v="115", "Chromium";v="115"',
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": '"Windows"',
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-site",
+      Referer: "https://insw.go.id/",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+    },
+    body: null,
+    method: "GET",
+  };
+
+  const options2 = {
+    headers: {
+      accept: "application/json, text/plain, */*",
+      "accept-language": "en-GB,en;q=0.9,id-ID;q=0.8,id;q=0.7,en-US;q=0.6",
+      authorization: "Basic aW5zd18yOmJhYzJiYXM2",
+      "if-none-match":
+        'W/"41-oDvlJCCihKv9gq+pWXndWOJgQJo:dtagent10295240705110949OqfB"',
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-site",
+    },
+    referrer: "https://insw.go.id/",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    body: null,
+    method: "GET",
+    mode: "cors",
+    credentials: "include",
+  };
+
+  try {
+    const response = await fetch(url, options2);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 export async function cekTarif(item) {
   let hsCode = item["HS Code"].toString();
   try {

@@ -1,5 +1,5 @@
 import React from "react";
-import { isNotValidFormat } from "../utils/utility";
+import { hsCodeFormat, isNotValidFormat } from "../utils/utility";
 
 export default function Row({ items, variant }) {
   switch (variant) {
@@ -21,7 +21,7 @@ export default function Row({ items, variant }) {
               }
               key={idx}
             >
-              {item}
+              {idx === 0 ? hsCodeFormat(item) : item}
             </td>
           ))}
         </>

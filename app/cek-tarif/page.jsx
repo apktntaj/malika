@@ -1,26 +1,24 @@
-import FileUpload from "../ui/FileUpload";
+import FileReaderWrapper from "../ui/FileReaderWrapper";
+import Title from "../ui/Title";
 
-const ExcelPage = () => {
+const CekTarifPage = () => {
   return (
     <div className="container">
-      <h1 className="text-4xl font-extrabold text-gray-600 text-center mb-6">
-        Harmonized System Checker
-      </h1>
-
+      <Title title="Cek Tarif HS Codes" />
       <p className="text-center text-slate-600">
-        Unduh contoh berkas excel di
+        Unduh contoh file Excel di
         <a
           className="text-blue-600-500 font-semibold drop-shadow-md tracking-wider"
-          href="template.xlsx"
+          href="cek-tarif.xlsx"
           download
         >
           {" "}
           sini
         </a>
       </p>
-      <FileUpload />
+      <FileReaderWrapper />
     </div>
   );
 };
 
-export default ExcelPage;
+export default CekTarifPage;

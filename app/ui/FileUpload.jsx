@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 import TableBarang from "./TableBarang";
-import { arrayBuffer, convertBufferToJson } from "../utils/utility";
+import {
+  arrayBuffer,
+  convertBufferToJson,
+  hsCodeFormat,
+} from "../utils/utility";
 import { inswData } from "../utils/excel";
 
 function FileUpload() {

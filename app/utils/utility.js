@@ -80,3 +80,25 @@ export function isNotValidFormat(str) {
   const pattern = /^\d+$/;
   return !(pattern.test(str) && str.length === 8);
 }
+
+/**
+ * Formats the HS code by adding dots between the year, month, and day.
+ * @param {string} hsCode - The HS code to be formatted.
+ * @returns {string} The formatted HS code.
+ */
+export function hsCodeFormat(hsCode) {
+  return hsCode.replace(/(\d{4})(\d{2})(\d{2})/, "$1.$2.$3");
+}
+
+/**
+ * Processes the fetched data and returns the specified item.
+ *
+ * @param {Object} fetchedData - The fetched data object.
+ * @param {string} item - The item to retrieve from the fetched data.
+ * @returns {*} The specified item from the fetched data.
+ */
+export function processInswData(fetchedData, item) {
+  if (!fetchedData) return null;
+
+  return fetchedData.value.data[0][item];
+}

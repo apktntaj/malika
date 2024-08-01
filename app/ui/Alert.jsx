@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Alert({ message }) {
+export default function Alert({ message, variant }) {
   return (
-    <div role="alert" className="alert mt-8">
+    <div role="alert" className={`alert alert-${variant} my-8 text-slate-800`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
