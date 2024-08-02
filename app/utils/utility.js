@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as XLSX from "xlsx";
+import { inswData } from "./excel";
 
 /**
  * Converts a file object to an ArrayBuffer.
@@ -90,15 +91,25 @@ export function hsCodeFormat(hsCode) {
   return hsCode.replace(/(\d{4})(\d{2})(\d{2})/, "$1.$2.$3");
 }
 
-/**
- * Processes the fetched data and returns the specified item.
- *
- * @param {Object} fetchedData - The fetched data object.
- * @param {string} item - The item to retrieve from the fetched data.
- * @returns {*} The specified item from the fetched data.
- */
-export function processInswData(fetchedData, item) {
-  if (!fetchedData) return null;
+export async function fetchedData(hsCodes) {
+  const uniqueHsCodes = [...new Set(hsCodes.map((item) => item["HS CODE"]))];
+  const response = await Promise.allSettled(
+    uniqueHsCodes.map((hsCode) => inswData(hsCode))
+  );
 
-  return fetchedData.value.data[0][item];
+  return response.map((data) => data.value?.data[0]);
+}
+
+/**
+ * Executes the provided function on the categories data obtained from hsWithIntr.
+ * @param {Object} hsWithIntr - The object containing the categories data.
+ * @param {Function} fn - The function to be executed on the categories data (mfn, new_mfn).
+ * @returns {Object} - The result of executing the provided function on the categories data.
+ */
+export function categoryIntr(hsWithIntr, fn) {
+  const categories = hsWithIntr.value?.data[0];
+
+  if (!categories) return { message: "Data tidak ada" };
+
+  return fn(categories);
 }

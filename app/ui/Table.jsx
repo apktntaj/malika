@@ -6,7 +6,7 @@ import Row from "./Row";
 import { isNotValidFormat } from "../utils/utility";
 
 export default function Table({ data, setDisabled }) {
-  setDisabled(false);
+  setDisabled(true);
 
   if (!data) return <Alert message="Belum ada file yang diunggah" />;
 
@@ -14,7 +14,9 @@ export default function Table({ data, setDisabled }) {
     return <Alert message="Data kosong, silakan isi terlebih dulu." />;
 
   const isTemplated =
-    JSON.stringify(Object.keys(data[0])) === JSON.stringify(["HS CODE"]);
+    JSON.stringify(Object.keys(data[0])) === JSON.stringify(["HS CODE"]) ||
+    JSON.stringify(Object.keys(data[0])) ===
+      JSON.stringify(["HS CODE", "BM", "PPN", "PPH", "PPH NON API"]);
   if (!isTemplated) return <Alert message="Format tidak sesuai." />;
 
   const anyInvalidFormat = data.some((item) =>

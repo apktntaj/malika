@@ -111,9 +111,7 @@ export async function inswData(hsCode) {
         options
       )
       .then((res) => res.data);
-  } catch (error) {
-    console.error(error.message);
-  }
+  } catch (error) {}
 }
 
 export async function infoFromInsw(hsCode) {

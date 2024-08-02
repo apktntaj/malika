@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Actions from "./Actions";
 import Table from "./Table";
 import { inswData } from "../utils/excel";
+import { fetchedData } from "../utils/utility";
 
 export default function FileReaderWrapper() {
   const [dataHsCodes, setDataHsCodes] = useState(null);
@@ -14,10 +15,37 @@ export default function FileReaderWrapper() {
     const uniqueHsCodes = [
       ...new Set(dataHsCodes.map((item) => item["HS CODE"])),
     ];
-    const fetchedUniqueHsCodes = await Promise.allSettled(
+    const response = await Promise.allSettled(
       uniqueHsCodes.map((hsCode) => inswData(hsCode))
     );
-    console.log(Object.values(fetchedUniqueHsCodes));
+    const uniqueHsWithData = response.map((data) => data.value?.data[0]);
+
+    const updatedData = dataHsCodes.map((item) => {
+      const updatedItem = uniqueHsWithData.find(
+        (mfnItem) => mfnItem?.hs_code === item["HS CODE"]
+      );
+
+      if (!updatedItem) {
+        return {
+          ...item,
+          BM: "Data tidak ditemukan",
+          PPN: "-",
+          PPH: "-",
+          "PPH NON API": "-",
+        };
+      }
+
+      const { new_mfn } = updatedItem;
+
+      return {
+        ...item,
+        BM: new_mfn[0].bm[0].bm,
+        PPN: new_mfn[0].ppn[0].ppn,
+        PPH: new_mfn[0].pph[0].pph,
+        "PPH NON API": new_mfn[0].pph[1].pph,
+      };
+    });
+    setDataHsCodes(updatedData);
   };
 
   return (
