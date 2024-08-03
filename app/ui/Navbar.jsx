@@ -48,11 +48,11 @@ const Navbar = ({ links }) => {
             <Link className="flex items-center space-x-2 text-4xl" href={"/"}>
               <Image
                 src={"/logo.png"}
-                width={80}
-                height={80}
+                width={50}
+                height={50}
                 alt="Logo Rayefy"
               />
-              <span>Rayefy</span>
+              <span>Malika</span>
             </Link>
           </div>
         </div>

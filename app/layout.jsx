@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html data-theme="bumblebee" lang="en">
       <body className={`${inter.className} text-slate-800 lg:px-20`}>
-        <header className="lg:px-10">
+        <header>
           <Navbar links={navLinks} />
         </header>
         <main className="min-h-[80vh] flex">
