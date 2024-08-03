@@ -11,6 +11,7 @@ export default function FileReaderWrapper() {
   const [disabled, setDisabled] = useState(true);
 
   const fetchHsCodes = async () => {
+    setDisabled(true);
     const uniqueHsCodes = [
       ...new Set(dataHsCodes.map((item) => item["HS CODE"])),
     ];
@@ -45,6 +46,7 @@ export default function FileReaderWrapper() {
       };
     });
     setDataHsCodes(updatedData);
+    setDisabled(false);
   };
 
   return (
