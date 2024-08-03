@@ -8,17 +8,13 @@ export default function Actions({
   onCheckTarifClick,
 }) {
   return (
-    <div className="container p-4 flex flex-col gap-2 md:flex-row justify-between items-center">
+    <div className="container space-y-2 p-4 md:flex md:justify-between md:items-center">
       <Input setHsCodes={onChangeFile} />
-      <div className="flex gap-3">
-        <Button
-          variant="primary"
-          children="Cek Tarif"
-          isDisabled={fetchable}
-          onHandleClick={onCheckTarifClick}
-        />
-        <Button variant="accent" children="Unduh File" />
-      </div>
+      <Button
+        children="Tarik data"
+        isDisabled={fetchable}
+        onHandleClick={onCheckTarifClick}
+      />
     </div>
   );
 }

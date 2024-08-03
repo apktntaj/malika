@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Actions from "./Actions";
 import Table from "./Table";
 import { inswData } from "../utils/excel";
+import { makeExcel } from "../utils/utility";
 
 export default function FileReaderWrapper() {
   const [dataHsCodes, setDataHsCodes] = useState(null);
@@ -47,6 +48,12 @@ export default function FileReaderWrapper() {
     });
     setDataHsCodes(updatedData);
     setDisabled(false);
+
+    makeExcel(updatedData);
+  };
+
+  const excelOf = () => {
+    console.log("just clicked");
   };
 
   return (
@@ -55,6 +62,7 @@ export default function FileReaderWrapper() {
         onChangeFile={setDataHsCodes}
         fetchable={disabled}
         onCheckTarifClick={fetchHsCodes}
+        onUnduhFileClick={excelOf}
       />
       <Table data={dataHsCodes} setDisabled={setDisabled} />
     </div>

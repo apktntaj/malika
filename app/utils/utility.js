@@ -113,3 +113,34 @@ export function categoryIntr(hsWithIntr, fn) {
 
   return fn(categories);
 }
+
+/**
+ * Generates an Excel file from the given data.
+ * @param {Array} data - The data to be converted to Excel.
+ * @returns {void} - The Excel file is saved to disk.
+ */
+export function makeExcel(data) {
+  const column = Object.keys(data[0]);
+
+  const cleanedData = data.map((item) => {
+    const cleanedItem = {};
+    for (const key in item) {
+      if (typeof item[key] === "string") {
+        cleanedItem[key] = item[key].replace(/\s/g, "").replace("%", "");
+      } else {
+        cleanedItem[key] = item[key];
+      }
+    }
+    return cleanedItem;
+  });
+
+  const ws = XLSX.utils.json_to_sheet(cleanedData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  XLSX.utils.sheet_add_aoa(ws, [column], { origin: "A1" });
+
+  const filePath = "cek-tarif.xlsx";
+  XLSX.writeFile(wb, filePath);
+
+  return filePath;
+}

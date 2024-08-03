@@ -1,14 +1,9 @@
 import React from "react";
 
-export default function Button({
-  variant,
-  isDisabled,
-  onHandleClick,
-  children,
-}) {
+export default function Button({ isDisabled, onHandleClick, children }) {
   return (
     <button
-      className={`btn btn-${variant} min-w-44 tracking-wider text-slate-700`}
+      className={`btn btn-accent btn-outline w-full md:btn-wide tracking-wider text-slate-700`}
       disabled={isDisabled}
       onClick={onHandleClick}
     >
