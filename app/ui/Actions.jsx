@@ -8,9 +8,9 @@ export default function Actions({
   onCheckTarifClick,
 }) {
   return (
-    <div className="container px-2 md:flex md:justify-between md:items-center">
+    <div className="container p-4 flex flex-col gap-2 md:flex-row justify-between items-center">
       <Input setHsCodes={onChangeFile} />
-      <div className="mt-3 flex gap-4">
+      <div className="flex gap-3">
         <Button
           variant="primary"
           children="Cek Tarif"

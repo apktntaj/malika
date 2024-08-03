@@ -14,11 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html data-theme="bumblebee" lang="en">
-      <body className={`${inter.className} text-slate-800`}>
+      <body className={`${inter.className} text-slate-800 lg:px-20`}>
         <header className="lg:px-10">
           <Navbar links={navLinks} />
         </header>
-        <main className="container min-h-[80vh] flex justify-center">
+        <main className="min-h-[80vh] flex">
           {children}
           <Analytics />
         </main>

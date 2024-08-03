@@ -1,4 +1,5 @@
 import React from "react";
+import TemplateExcelLink from "./TemplateExcelLink";
 
 export default function Alert({ message, variant }) {
   return (
@@ -17,6 +18,7 @@ export default function Alert({ message, variant }) {
         ></path>
       </svg>
       <span>{message}</span>
+      <TemplateExcelLink />
     </div>
   );
 }

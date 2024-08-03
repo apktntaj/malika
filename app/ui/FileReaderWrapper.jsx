@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import Actions from "./Actions";
 import Table from "./Table";
 import { inswData } from "../utils/excel";
-import { fetchedData } from "../utils/utility";
 
 export default function FileReaderWrapper() {
   const [dataHsCodes, setDataHsCodes] = useState(null);
@@ -49,13 +48,13 @@ export default function FileReaderWrapper() {
   };
 
   return (
-    <>
+    <div>
       <Actions
         onChangeFile={setDataHsCodes}
         fetchable={disabled}
         onCheckTarifClick={fetchHsCodes}
       />
       <Table data={dataHsCodes} setDisabled={setDisabled} />
-    </>
+    </div>
   );
 }

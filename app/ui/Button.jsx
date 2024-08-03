@@ -8,7 +8,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={`btn btn-${variant} tracking-wider text-slate-700`}
+      className={`btn btn-${variant} min-w-44 tracking-wider text-slate-700`}
       disabled={isDisabled}
       onClick={onHandleClick}
     >

@@ -17,7 +17,7 @@ export default function Input({ setHsCodes }) {
       type="file"
       accept=".xlsx, .xls"
       onChange={handleChange}
-      className="file-input file-input-bordered w-full max-w-xs"
+      className="file-input file-input-bordered w-full lg:max-w-xs max-w-sm"
     />
   );
 }
