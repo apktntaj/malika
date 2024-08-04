@@ -139,7 +139,7 @@ export function makeExcel(data) {
   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
   XLSX.utils.sheet_add_aoa(ws, [column], { origin: "A1" });
 
-  const filePath = "cek-tarif.xlsx";
+  const filePath = "hasil-cek-tarif.xlsx";
   XLSX.writeFile(wb, filePath);
 
   return filePath;
