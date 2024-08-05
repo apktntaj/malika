@@ -105,6 +105,9 @@ export default async function ShipmentPage() {
 
   return (
     <div className="container mx-auto">
+      <h1 className="p-2 text-4xl font-bold text-slate-600 text-center">
+        Shipments List
+      </h1>
       <div className="p-2 md:flex justify-between w-full gap-2">
         <Search />
         <ShipmentFilter />
