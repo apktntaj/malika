@@ -45,14 +45,17 @@ const Navbar = ({ links }) => {
         {/* LOGO */}
         <div>
           <div>
-            <Link className="flex items-center space-x-2 text-4xl" href={"/"}>
+            <Link
+              className="flex items-center space-x-2 text-2xl tracking-wider"
+              href={"/"}
+            >
               <Image
                 src={"/logo.png"}
                 width={50}
                 height={50}
                 alt="Logo Rayefy"
               />
-              <span>Malika</span>
+              <span className="text-gray-600 font-extrabold">Visrodt</span>
             </Link>
           </div>
         </div>
