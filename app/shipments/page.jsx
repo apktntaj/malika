@@ -12,25 +12,18 @@ async function getShipments() {
   return response;
 }
 
-async function getShipper() {
-  const response = await prisma.shipper.findMany();
-  return response;
-}
+// async function getShipper() {
+//   const response = await prisma.shipper.findMany();
+//   return response;
+// }
 
-async function getConsignee() {
-  const response = await prisma.consignee.findMany();
-  return response;
-}
+// async function getConsignee() {
+//   const response = await prisma.consignee.findMany();
+//   return response;
+// }
 
 export default async function ShipmentPage() {
-  const [shipments, shipper, consignee] = await Promise.all([
-    getShipments(),
-    getShipper(),
-    getConsignee(),
-  ]);
-  // const shipments = await getShipments();
-  // const shipper = await getShipper();
-  // const consignee = await getConsignee();
+  const shipments = await getShipments();
 
   return (
     <div className="container mx-auto">
@@ -45,12 +38,7 @@ export default async function ShipmentPage() {
       </div>
       <div className="p-2 flex flex-col md:grid grid-cols-3 gap-2">
         {shipments.map((shipment) => (
-          <Card
-            key={shipment.id}
-            item={shipment}
-            shipper={shipper}
-            consignee={consignee}
-          />
+          <Card key={shipment.id} item={shipment} />
         ))}
       </div>
     </div>
