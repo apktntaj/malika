@@ -5,7 +5,8 @@ import Button from "./Button";
 export default function Actions({
   onChangeFile,
   fetchable,
-  onCheckTarifClick,
+  onButtonClick,
+  downloadAble,
 }) {
   return (
     <div className="container space-y-2 p-4 md:flex md:justify-between md:items-center">
@@ -13,7 +14,8 @@ export default function Actions({
       <Button
         children="Tarik data"
         isDisabled={fetchable}
-        onHandleClick={onCheckTarifClick}
+        isDownload={downloadAble}
+        onHandleClick={onButtonClick}
       />
     </div>
   );
