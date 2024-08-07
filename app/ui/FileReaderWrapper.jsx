@@ -7,31 +7,57 @@ import Table from "./Table";
 import { inswData } from "../utils/excel";
 import { makeExcel } from "../utils/utility";
 
-export default function FileReaderWrapper() {
-  const [dataHsCodes, setDataHsCodes] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-  const [downloadAble, setDownloadAble] = useState(false);
+export default function ActionTableWrapper() {
+  const [hsCodes, setHsCodes] = useState(null);
+  const [status, setStatus] = useState("Disabled");
+
+  console.log(status);
+
+  const hs = {
+    invalid: [
+      {
+        BM: "1234",
+        "HS CODE": "1234",
+        PPN: "1234",
+      },
+    ],
+    kosong: [],
+    tul: [
+      {
+        "HS CODE": "8535302",
+      },
+    ],
+    tul2: [
+      {
+        "HS CODE": "85353020",
+      },
+    ],
+    tul3: [
+      {
+        "HS CODE": "85353020",
+        BM: "0.1",
+        PPN: "10",
+        PPH: "0",
+        "PPH NON API": "0",
+      },
+    ],
+  };
 
   const handleClick = async () => {
-    if (downloadAble) {
-      makeExcel(dataHsCodes);
-      setDownloadAble(false);
-      setDisabled(null);
+    if (status === "Download") {
+      makeExcel(hsCodes);
     } else {
-      setDisabled(true);
       const uniqueHsCodes = [
-        ...new Set(dataHsCodes.map((item) => item["HS CODE"])),
+        ...new Set(hsCodes.map((item) => item["HS CODE"])),
       ];
       const response = await Promise.allSettled(
         uniqueHsCodes.map((hsCode) => inswData(hsCode))
       );
       const uniqueHsWithData = response.map((data) => data.value?.data[0]);
-
-      const updatedData = dataHsCodes.map((item) => {
+      const updatedData = hsCodes.map((item) => {
         const updatedItem = uniqueHsWithData.find(
           (mfnItem) => mfnItem?.hs_code === item["HS CODE"]
         );
-
         if (!updatedItem) {
           return {
             ...item,
@@ -41,9 +67,7 @@ export default function FileReaderWrapper() {
             "PPH NON API": "-",
           };
         }
-
         const { new_mfn } = updatedItem;
-
         return {
           ...item,
           BM: new_mfn[0].bm[0].bm,
@@ -52,22 +76,18 @@ export default function FileReaderWrapper() {
           "PPH NON API": new_mfn[0].pph[1].pph,
         };
       });
-      setDataHsCodes(updatedData);
-      setDisabled(false);
-      setDownloadAble(true);
+      setHsCodes(updatedData);
     }
-    // makeExcel(updatedData);
   };
 
   return (
     <div>
       <Actions
-        downloadAble={downloadAble}
-        onChangeFile={setDataHsCodes}
-        fetchable={disabled}
-        onCheckTarifClick={handleClick}
+        onChangeFile={setHsCodes}
+        buttonChildren={status}
+        onButtonClick={handleClick}
       />
-      <Table data={dataHsCodes} setDisabled={setDisabled} />
+      <Table data={hsCodes} setButtonStatus={setStatus} />
     </div>
   );
 }

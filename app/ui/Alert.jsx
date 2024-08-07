@@ -18,7 +18,6 @@ export default function Alert({ message, variant }) {
         ></path>
       </svg>
       <span>{message}</span>
-      <TemplateExcelLink />
     </div>
   );
 }

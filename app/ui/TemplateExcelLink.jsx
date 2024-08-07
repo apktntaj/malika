@@ -2,10 +2,10 @@ import React from "react";
 
 export default function TemplateExcelLink() {
   return (
-    <p className="text-center text-slate-600">
+    <p className="text-center text-slate-600 font-bold text-xl mt-10">
       Unduh contoh file Excel di
       <a
-        className="text-blue-600-500 font-semibold drop-shadow-md tracking-wider"
+        className="text-secondary tracking-wider"
         href="cek-tarif.xlsx"
         download
       >
