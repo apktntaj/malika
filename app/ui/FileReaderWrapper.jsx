@@ -52,17 +52,12 @@ export default function FileReaderWrapper() {
     makeExcel(updatedData);
   };
 
-  const excelOf = () => {
-    console.log("just clicked");
-  };
-
   return (
     <div>
       <Actions
         onChangeFile={setDataHsCodes}
         fetchable={disabled}
         onCheckTarifClick={fetchHsCodes}
-        onUnduhFileClick={excelOf}
       />
       <Table data={dataHsCodes} setDisabled={setDisabled} />
     </div>
