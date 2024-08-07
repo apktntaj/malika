@@ -1,10 +1,5 @@
 export const navLinks = [
   {
-    id: 2,
-    label: "Shipments",
-    href: "/shipments",
-  },
-  {
     id: 3,
     label: "Cek Tarif",
     href: "/cek-tarif",
