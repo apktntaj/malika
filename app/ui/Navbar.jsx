@@ -46,15 +46,9 @@ const Navbar = ({ links }) => {
         <div>
           <div>
             <Link
-              className="flex items-center space-x-2 text-2xl tracking-wider"
+              className="flex items-center space-x-2 text-3xl tracking-wider"
               href={"/"}
             >
-              <Image
-                src={"/logo.png"}
-                width={50}
-                height={50}
-                alt="Logo Rayefy"
-              />
               <span className="text-gray-600 font-extrabold">Visrodt</span>
             </Link>
           </div>
