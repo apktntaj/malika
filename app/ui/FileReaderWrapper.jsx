@@ -11,8 +11,6 @@ export default function ActionTableWrapper() {
   const [hsCodes, setHsCodes] = useState(null);
   const [status, setStatus] = useState("Disabled");
 
-  console.log(hsCodes ? Object.keys(hsCodes[0]) : "No data");
-
   const handleClick = async () => {
     if (status === "Download") {
       makeExcel(hsCodes);
@@ -40,10 +38,10 @@ export default function ActionTableWrapper() {
         const { new_mfn } = updatedItem;
         return {
           ...item,
-          BM: new_mfn[0].bm[0].bm,
-          PPN: new_mfn[0].ppn[0].ppn,
-          PPH: new_mfn[0].pph[0].pph,
-          "PPH NON API": new_mfn[0].pph[1].pph,
+          BM: new_mfn[0].bm[0]?.bm,
+          PPN: new_mfn[0].ppn[0]?.ppn,
+          PPH: new_mfn[0].pph[0]?.pph,
+          "PPH NON API": new_mfn[0].pph[1]?.pph,
         };
       });
       setHsCodes(updatedData);
