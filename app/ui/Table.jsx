@@ -25,11 +25,9 @@ export default function Table({ data, setButtonStatus }) {
       return <Alert message="Data kosong, silakan isi terlebih dulu." />;
     }
     case 1: {
-      if (allHsCodesValid(data) && isFetched(data))
-        setButtonStatus("Tarik Data");
+      if (allHsCodesValid(data)) setButtonStatus("Tarik Data");
 
-      if (!allHsCodesValid(data) && !isFetched(data))
-        setButtonStatus("Download");
+      if (allHsCodesValid(data) && isFetched(data)) setButtonStatus("Download");
 
       const invalideMessage =
         "Ada beberapa data yang tidak sesuai format HS code. Silakan lihat teks yang berwarna merah";
@@ -67,7 +65,7 @@ export default function Table({ data, setButtonStatus }) {
 }
 
 function isFetched(data) {
-  return data.every((item) => item.BM === undefined);
+  return data.every((item) => item["BM"]?.includes("%"));
 }
 
 function allHsCodesValid(data) {

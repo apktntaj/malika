@@ -140,6 +140,7 @@ export function makeExcel(data) {
         cleanedItem[key] = item[key];
       }
     }
+
     return cleanedItem;
   });
 
