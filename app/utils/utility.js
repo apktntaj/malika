@@ -33,6 +33,15 @@ export function convertBufferToJson(buffer) {
   const worksheet = workbook.Sheets[sheetName];
   const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
+  jsonData.forEach((row) => {
+    for (let key in row) {
+      if (row.hasOwnProperty(key)) {
+        // Convert the value to a string
+        row[key] = row[key].toString();
+      }
+    }
+  });
+
   return jsonData;
 }
 
@@ -77,9 +86,9 @@ export async function dataInsw(item) {
   }
 }
 
-export function isNotValidFormat(str) {
+export function isValidFormat(str) {
   const pattern = /^\d+$/;
-  return !(pattern.test(str) && str.length === 8);
+  return pattern.test(str) && str.length === 8;
 }
 
 /**

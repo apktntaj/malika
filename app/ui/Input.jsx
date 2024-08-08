@@ -7,8 +7,9 @@ export default function Input({ setHsCodes }) {
   const handleChange = (e) => {
     const bufferedFile = arrayBuffer(e.target.files[0]);
     bufferedFile.then((buffer) => {
-      const jsonData = convertBufferToJson(buffer);
-      setHsCodes(jsonData);
+      const result = convertBufferToJson(buffer);
+
+      setHsCodes(result);
     });
   };
 

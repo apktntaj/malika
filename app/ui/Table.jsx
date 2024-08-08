@@ -3,7 +3,7 @@
 import React from "react";
 import Alert from "./Alert";
 import Row from "./Row";
-import { isNotValidFormat } from "../utils/utility";
+import { isValidFormat } from "../utils/utility";
 import TemplateExcelLink from "./TemplateExcelLink";
 
 export default function Table({ data, setButtonStatus }) {
@@ -25,11 +25,10 @@ export default function Table({ data, setButtonStatus }) {
       return <Alert message="Data kosong, silakan isi terlebih dulu." />;
     }
     case 1: {
-      console.log(isFetched(data));
-      if (!anyInvalidFormat(data) && isFetched(data))
+      if (allHsCodesValid(data) && isFetched(data))
         setButtonStatus("Tarik Data");
 
-      if (!anyInvalidFormat(data) && !isFetched(data))
+      if (!allHsCodesValid(data) && !isFetched(data))
         setButtonStatus("Download");
 
       const invalideMessage =
@@ -37,7 +36,7 @@ export default function Table({ data, setButtonStatus }) {
 
       return (
         <div className="container">
-          {anyInvalidFormat && (
+          {!allHsCodesValid && (
             <Alert message={invalideMessage} variant="warning" />
           )}
           <div className="overflow-x-auto overflow-y-scroll h-96">
@@ -53,6 +52,7 @@ export default function Table({ data, setButtonStatus }) {
                   return (
                     <tr key={idx}>
                       <td>{idx + 1}</td>
+
                       <Row items={Object.values(item)} variant={"data"} />
                     </tr>
                   );
@@ -70,8 +70,8 @@ function isFetched(data) {
   return data.every((item) => item.BM === undefined);
 }
 
-function anyInvalidFormat(data) {
-  return data.some((item) => isNotValidFormat(item["HS CODE"]));
+function allHsCodesValid(data) {
+  return data.some((item) => isValidFormat(item["HS CODE"]));
 }
 
 function isTemplated(data) {

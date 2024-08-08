@@ -11,37 +11,7 @@ export default function ActionTableWrapper() {
   const [hsCodes, setHsCodes] = useState(null);
   const [status, setStatus] = useState("Disabled");
 
-  console.log(status);
-
-  const hs = {
-    invalid: [
-      {
-        BM: "1234",
-        "HS CODE": "1234",
-        PPN: "1234",
-      },
-    ],
-    kosong: [],
-    tul: [
-      {
-        "HS CODE": "8535302",
-      },
-    ],
-    tul2: [
-      {
-        "HS CODE": "85353020",
-      },
-    ],
-    tul3: [
-      {
-        "HS CODE": "85353020",
-        BM: "0.1",
-        PPN: "10",
-        PPH: "0",
-        "PPH NON API": "0",
-      },
-    ],
-  };
+  console.log(hsCodes ? Object.keys(hsCodes[0]) : "No data");
 
   const handleClick = async () => {
     if (status === "Download") {
