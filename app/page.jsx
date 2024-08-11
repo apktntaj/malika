@@ -1,13 +1,13 @@
-import Hero from "./ui/Hero";
+import ActionTableWrapper from "./ui/FileReaderWrapper";
+import Title from "./ui/Title";
 
-const title = "Solusi untuk semua kebutuhan pabean.";
-const subtitle =
-  "Rayefy akan membantu anda menyederhanakan proses pembuatan dokumen pabeanmu. Daftar sekarang dan nikmati layanan kami secara gratis untuk pertama kali.";
-
-export default function Home() {
+const HomePage = () => {
   return (
-    <>
-      <Hero title={title} subtitle={subtitle} />
-    </>
+    <div className="container">
+      <Title title="Cek Tarif HS Codes" />
+      <ActionTableWrapper />
+    </div>
   );
-}
+};
+
+export default HomePage;
