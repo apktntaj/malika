@@ -69,7 +69,7 @@ function isFetched(data) {
 }
 
 function allHsCodesValid(data) {
-  return data.some((item) => isValidFormat(item["HS CODE"]));
+  return data.every((item) => isValidFormat(item["HS CODE"]));
 }
 
 function isTemplated(data) {
