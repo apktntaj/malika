@@ -40,3 +40,7 @@ Apabila sudah ada kebijakan **kuota impor** dari pemerintah dalam negeri untuk m
 Apabila ada komoditi barang dari negara Indonesia yang pengenaan pajaknya diskrimnatif di Negara lain, maka untuk komoditi barang yang sama Pemerintah bisa mengenakan tambahan BM Pembalasan.
 
 Misal di Negara ABC barang tekstil dari negara Indonesia dikenakan tarif BM 40%, sedangkan dari negara lain tarif yang dikenakan lebih rendah. Maka Pemerintah Indonesia akan mengenakan tambahan BM Pembalasan untuk barang sejenis dari Negara ABC.
+
+### Kesimpulan
+
+Bea Masuk tambahan (countervailing duties), diperlukan untuk melindungi industri dalam negeri dari persaingan yang tidak adil akibat subsidi yang diberikan oleh negara pengekspor kepada produsen mereka. Subsidi ini dapat menurunkan harga barang impor secara artifisial, merugikan produsen lokal yang harus bersaing dengan harga yang tidak mencerminkan nilai pasar sebenarnya. Dengan adanya Bea Masuk tambahan, negara pengimpor dapat mengimbangi dampak subsidi tersebut, menjaga keseimbangan pasar, dan melindungi kelangsungan industri domestik.
