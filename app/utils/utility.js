@@ -31,16 +31,17 @@ export function convertBufferToJson(buffer) {
   const workbook = XLSX.read(buffer, { type: "buffer" });
   const sheetName = workbook.SheetNames[0];
   const worksheet = workbook.Sheets[sheetName];
-  const jsonData = XLSX.utils.sheet_to_json(worksheet);
+  const merges = worksheet["!merges"];
+  const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-  jsonData.forEach((row) => {
-    for (let key in row) {
-      if (row.hasOwnProperty(key)) {
-        // Convert the value to a string
-        row[key] = row[key].toString();
-      }
-    }
-  });
+  // jsonData.forEach((row) => {
+  //   for (let key in row) {
+  //     if (row.hasOwnProperty(key)) {
+  //       // Convert the value to a string
+  //       row[key] = row[key].toString();
+  //     }
+  //   }
+  // });
 
   return jsonData;
 }
@@ -61,7 +62,7 @@ export async function dataInsw(item) {
         },
         body: null,
         method: "GET",
-      }
+      },
     );
 
     const html = response.data;
@@ -103,7 +104,7 @@ export function hsCodeFormat(hsCode) {
 export async function fetchedData(hsCodes) {
   const uniqueHsCodes = [...new Set(hsCodes.map((item) => item["HS CODE"]))];
   const response = await Promise.allSettled(
-    uniqueHsCodes.map((hsCode) => inswData(hsCode))
+    uniqueHsCodes.map((hsCode) => inswData(hsCode)),
   );
 
   return response.map((data) => data.value?.data[0]);
