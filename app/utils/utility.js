@@ -28,22 +28,18 @@ export function arrayBuffer(files) {
  * @returns {Array} - The JSON data extracted from the Excel sheet.
  */
 export function convertBufferToJson(buffer) {
+  const result = [];
   const workbook = XLSX.read(buffer, { type: "buffer" });
-  const sheetName = workbook.SheetNames[0];
-  const worksheet = workbook.Sheets[sheetName];
-  const merges = worksheet["!merges"];
-  const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  const sheetNames = workbook.SheetNames;
 
-  // jsonData.forEach((row) => {
-  //   for (let key in row) {
-  //     if (row.hasOwnProperty(key)) {
-  //       // Convert the value to a string
-  //       row[key] = row[key].toString();
-  //     }
-  //   }
-  // });
+  for (let i = 0; i < sheetNames.length; i++) {
+    const worksheet = workbook.Sheets[sheetNames[i]];
+    const temp = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    result.push(...temp);
+  }
+  // const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-  return jsonData;
+  return result;
 }
 
 export async function dataInsw(item) {
@@ -62,7 +58,7 @@ export async function dataInsw(item) {
         },
         body: null,
         method: "GET",
-      },
+      }
     );
 
     const html = response.data;
@@ -87,7 +83,8 @@ export async function dataInsw(item) {
   }
 }
 
-export function isValidFormat(str) {
+export function isValidFormat(x) {
+  const str = String(x);
   const pattern = /^\d+$/;
   return pattern.test(str) && str.length === 8;
 }
@@ -98,13 +95,13 @@ export function isValidFormat(str) {
  * @returns {string} The formatted HS code.
  */
 export function hsCodeFormat(hsCode) {
-  return hsCode.replace(/(\d{4})(\d{2})(\d{2})/, "$1.$2.$3");
+  return String(hsCode).replace(/(\d{4})(\d{2})(\d{2})/, "$1.$2.$3");
 }
 
 export async function fetchedData(hsCodes) {
   const uniqueHsCodes = [...new Set(hsCodes.map((item) => item["HS CODE"]))];
   const response = await Promise.allSettled(
-    uniqueHsCodes.map((hsCode) => inswData(hsCode)),
+    uniqueHsCodes.map((hsCode) => inswData(hsCode))
   );
 
   return response.map((data) => data.value?.data[0]);

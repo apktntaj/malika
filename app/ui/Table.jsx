@@ -8,7 +8,7 @@ import Row from "./Row";
 export default function Table({ data, setButtonStatus }) {
   if (!data) return <Alert message="Belum ada data" />;
 
-  const fixedData = data.map((arr) => nullingHolesElement(arr));
+  const fixedData = data.map((arr) => noHolesEl(arr));
   const rows = fixedData.map((row, idx) => (
     <tr className="hover" key={idx}>
       <td>{idx + 1}</td>
@@ -26,6 +26,6 @@ export default function Table({ data, setButtonStatus }) {
   );
 }
 
-function nullingHolesElement(arr) {
+function noHolesEl(arr) {
   return Array.from(arr, (el) => (el !== undefined ? el : null));
 }
