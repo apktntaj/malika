@@ -2,7 +2,7 @@ export const navLinks = [
   {
     id: 3,
     label: "Cek Tarif",
-    href: "/",
+    href: "/cek-tarif",
   },
   {
     id: 4,

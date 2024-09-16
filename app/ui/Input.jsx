@@ -1,7 +1,11 @@
 "use client";
 
 import React from "react";
-import { arrayBuffer, convertBufferToJson } from "../utils/utility";
+import {
+  arrayBuffer,
+  convertBufferToJson,
+  isValidFormat,
+} from "../utils/utility";
 
 export default function Input({ setHsCodes }) {
   const handleChange = (e) => {
@@ -9,7 +13,12 @@ export default function Input({ setHsCodes }) {
     bufferedFile.then((buffer) => {
       const result = convertBufferToJson(buffer);
 
-      setHsCodes(result);
+      const cleanedResult = result
+        .filter((arr) => arr.length !== 0)
+        .map((arr) => arr.filter((val) => isValidFormat(val)))
+        .reduce((arr1, arr2) => arr1.concat(arr2));
+
+      setHsCodes(cleanedResult);
     });
   };
 

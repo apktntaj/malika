@@ -29,6 +29,7 @@ export function arrayBuffer(files) {
  */
 export function convertBufferToJson(buffer) {
   const result = [];
+
   const workbook = XLSX.read(buffer, { type: "buffer" });
   const sheetNames = workbook.SheetNames;
 
