@@ -4,8 +4,10 @@ import Title from "./ui/Title";
 const HomePage = () => {
   return (
     <div className="container">
-      <Title title="Cek Tarif HS Codes" />
-      <ActionTableWrapper />
+      <Title
+        className="text-center"
+        title="Aplikasi yang memindai file excel dan akan menampilkan data yang sesuai dengan format HS Code."
+      />
     </div>
   );
 };

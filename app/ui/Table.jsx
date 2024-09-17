@@ -19,14 +19,23 @@ export default function Table({ data, setButtonStatus }) {
   //   .map((arr) => arr.filter((val) => isValidFormat(val)))
   //   .reduce((arr1, arr2) => arr1.concat(arr2));
 
+  const cleanedResult = data
+    .filter((arr) => arr.length !== 0)
+    .map((arr) => arr.filter((val) => isValidFormat(val)))
+    .reduce((arr1, arr2) => arr1.concat(arr2));
+
   setButtonStatus("Cari Data Pajak Di INTR");
 
-  const rows = data.map((row, idx) => (
-    <tr className="hover" key={idx}>
-      <td>{idx + 1}</td>
-      <Row rowCells={row} />
-    </tr>
-  ));
+  const rows = data
+    .filter((row) => row.length !== 0)
+    .map((row) => row.filter((cell) => isValidFormat(cell)))
+    .reduce((arr1, arr2) => arr1.concat(arr2))
+    .map((row, idx) => (
+      <tr className="hover" key={idx}>
+        <td>{idx + 1}</td>
+        <Row rowCells={row} />
+      </tr>
+    ));
 
   return (
     <div className="overflow-x-auto max-h-screen">

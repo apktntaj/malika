@@ -4,7 +4,7 @@ import Title from "../ui/Title";
 const CekTarifPage = () => {
   return (
     <div className="container">
-      <Title title="Pemindai HS Code Pada CIPL" />
+      <Title title="A fool with a tools still a fool" />
       <ActionTableWrapper />
     </div>
   );

@@ -13,12 +13,7 @@ export default function Input({ setHsCodes }) {
     bufferedFile.then((buffer) => {
       const result = convertBufferToJson(buffer);
 
-      const cleanedResult = result
-        .filter((arr) => arr.length !== 0)
-        .map((arr) => arr.filter((val) => isValidFormat(val)))
-        .reduce((arr1, arr2) => arr1.concat(arr2));
-
-      setHsCodes(cleanedResult);
+      setHsCodes(result);
     });
   };
 
