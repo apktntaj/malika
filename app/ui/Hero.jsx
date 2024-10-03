@@ -9,14 +9,6 @@ const Hero = ({ title, subtitle }) => {
           <h1 className="text-4xl font-bold">{title}</h1>
           <p className="py-6">{subtitle}</p>
         </div>
-        <div className="flex gap-3 justify-start w-full">
-          <button className="btn btn-accent">
-            <Link href={"/daftar"}>Daftar</Link>
-          </button>
-          <button className="btn btn-success">
-            <Link href={"/dashboard"}>Masuk</Link>
-          </button>
-        </div>
       </div>
       <div>
         <Image
